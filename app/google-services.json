@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "243266334501",
+    "project_id": "panthera-fb538",
+    "storage_bucket": "panthera-fb538.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243266334501:android:047e5b79299587a961f4cc",
+        "android_client_info": {
+          "package_name": "com.example.panthera"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243266334501-p742tm2kcge4e4fk1oeph31sd919gs1k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZwAltrCPbxOVIwStb9UC4Wjq54NQvYNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243266334501-p742tm2kcge4e4fk1oeph31sd919gs1k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
