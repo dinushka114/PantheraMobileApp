@@ -1,6 +1,7 @@
 package com.example.panthera;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -34,26 +37,52 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+        GuideModel model = list.get(position);
+
+        Picasso.get().load(model.getImage1()).placeholder(R.drawable.guide).into(holder.guide_image);
+
+        holder.guide_name.setText(model.getGuide_name());
+        holder.guide_address.setText(model.getGuide_address());
+        holder.guide_contact.setText(model.getGuide_contact());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(context, SingleGuideActivity.class);
+
+                intent.putExtra("singleImage", model.getImage1());
+                intent.putExtra("singleGuideName", model.getGuide_name());
+                intent.putExtra("singleDescription", model.getGuide_description());
+                intent.putExtra("singleLanguages", model.getGuide_languages());
+                intent.putExtra("singleContact", model.getGuide_contact());
+                intent.putExtra("singleAddress", model.getGuide_address());
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
+
         return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView guide_name, guide_description, guide_address, guide_contact, guide_languages;
+        TextView guide_name, guide_address, guide_contact;
         ImageView guide_image;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             guide_name = itemView.findViewById(R.id.guide_name);
-            guide_description = itemView.findViewById(R.id.guide_description);
             guide_address = itemView.findViewById(R.id.guide_address);
             guide_contact = itemView.findViewById(R.id.guide_contact);
-            guide_languages = itemView.findViewById(R.id.guide_languages);
 
             guide_image = itemView.findViewById(R.id.guide_image);
         }
