@@ -180,6 +180,7 @@
 
 
             <ProgressBar
+                android:id="@+id/progressBar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -191,7 +192,7 @@
 
             </ProgressBar>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/registerBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -205,7 +206,7 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 >
-            </androidx.appcompat.widget.AppCompatButton>
+            </Button>
 
             <TextView
                 android:layout_width="match_parent"

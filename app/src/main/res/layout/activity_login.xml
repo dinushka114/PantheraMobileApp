@@ -117,8 +117,8 @@
                 />
 
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/registerBtn"
+            <Button
+                android:id="@+id/loginBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_button"
@@ -131,16 +131,32 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 >
-            </androidx.appcompat.widget.AppCompatButton>
+            </Button>
+
+            <TextView
+                android:id="@+id/forgetPw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="forget password"
+                app:layout_constraintTop_toBottomOf="@id/loginBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_text_color"
+                android:textSize="16sp"
+                >
+
+            </TextView>
 
             <TextView
                 android:id="@+id/signUpText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/registerBtn"
+                app:layout_constraintTop_toBottomOf="@id/forgetPw"
                 android:layout_marginTop="20dp"
                 android:textColor="@color/secondary_text_color"
-                android:text="Already have an account ?  Login"
+                android:text="Don't have an account ?  Register"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
