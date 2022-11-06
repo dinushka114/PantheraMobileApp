@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.ViewHolder> {
+public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder> {
 
-    ArrayList<GuideModel> list;
+    ArrayList<QuestionModel> list;
     Context context;
 
-    public GuideAdapter(ArrayList<GuideModel> list, Context context) {
+    public QuestionAdapter(ArrayList<QuestionModel> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -27,7 +26,7 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.guidelist_studentview, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.question_forum_view, parent, false);
         return new ViewHolder(view);
     }
 
@@ -43,19 +42,17 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView guide_name, guide_description, guide_address, guide_contact, guide_languages;
-        ImageView guide_image;
+        TextView questionCategory,questionTitle,question;
+        ImageView userImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            guide_name = itemView.findViewById(R.id.guide_name);
-            guide_description = itemView.findViewById(R.id.guide_description);
-            guide_address = itemView.findViewById(R.id.guide_address);
-            guide_contact = itemView.findViewById(R.id.guide_contact);
-            guide_languages = itemView.findViewById(R.id.guide_languages);
+            questionCategory = itemView.findViewById(R.id.questionCategory);
+            questionTitle = itemView.findViewById(R.id.questionTitle);
+            question = itemView.findViewById(R.id.question);
+            userImage = itemView.findViewById(R.id.userImage);
 
-            guide_image = itemView.findViewById(R.id.guide_image);
         }
     }
 }

@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button add;
+    Button addQuestion;
     RecyclerView recyclerView;
 
     @Override
@@ -18,13 +18,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        add = findViewById(R.id.add);
+        addQuestion = findViewById(R.id.addQuestion);
         recyclerView = findViewById(R.id.recycleView);
 
-        add.setOnClickListener(new View.OnClickListener() {
+        addQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddGuide.class);
+                Intent intent = new Intent(MainActivity.this, AddQuestion.class);
                 startActivity(intent);
             }
         });

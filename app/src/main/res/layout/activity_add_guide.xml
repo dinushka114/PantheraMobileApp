@@ -5,28 +5,29 @@
     android:id="@+id/constlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddGuide">
+    android:background="@drawable/dashboard1"
+    tools:context=".AddQuestion">
 
     <Button
-        android:id="@+id/addbtn"
+        android:id="@+id/sendBtn"
         android:layout_width="379dp"
         android:layout_height="56dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="36dp"
         android:backgroundTint="#4CAF50"
         android:text="add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
+        app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Safari Guides"
-        android:textColor="@color/black"
+        android:text="Add Question"
+        android:textColor="@color/white"
         android:textSize="45dp"
-        app:layout_constraintBottom_toTopOf="@+id/guide_image"
+        app:layout_constraintBottom_toTopOf="@+id/userImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,119 +35,64 @@
         app:layout_constraintVertical_bias="0.5" />
 
     <EditText
-        android:id="@+id/guide_name"
+        android:id="@+id/questionCategory"
         android:layout_width="379dp"
         android:layout_height="56dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/edit_background"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/custom_input"
         android:ems="10"
-        android:hint="Enter guide name "
+        android:hint="Question category"
         android:inputType="textPersonName"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/guide_description"
+        android:paddingStart="20dp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/guide_description"
-        android:layout_width="379dp"
-        android:layout_height="127dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/edit_background"
-        android:ems="10"
-        android:hint="Enter guide description "
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/guide_languages"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/guide_languages"
-        android:layout_width="379dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/edit_background"
-        android:ems="10"
-        android:hint="Enter languages"
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/guide_address"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/guide_address"
-        android:layout_width="379dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/edit_background"
-        android:ems="10"
-        android:hint="Enter guide address "
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/guide_contact"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/guide_contact"
-        android:layout_width="379dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="64dp"
-        android:background="@drawable/edit_background"
-        android:ems="10"
-        android:hint="Enter guide contact"
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/addbtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/uploadimgbtn"
-        android:layout_width="183dp"
-        android:layout_height="65dp"
-        android:layout_marginEnd="5dp"
-        android:backgroundTint="#2196F3"
-        android:text="Upload Images"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/addbtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/uploadvideobtn" />
-
-    <Button
-        android:id="@+id/uploadvideobtn"
-        android:layout_width="183dp"
-        android:layout_height="65dp"
-        android:backgroundTint="#2196F3"
-        android:text="Upload Videos"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/addbtn"
-        app:layout_constraintEnd_toStartOf="@+id/uploadimgbtn"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.312"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guide_contact"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/userImage" />
+
+    <EditText
+        android:id="@+id/questionTitle"
+        android:layout_width="373dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_input"
+        android:ems="10"
+        android:hint="Question title"
+        android:inputType="textPersonName"
+        android:paddingStart="20dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/questionCategory" />
+
+    <EditText
+        android:id="@+id/question"
+        android:layout_width="382dp"
+        android:layout_height="124dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/custom_input"
+        android:ems="10"
+        android:hint="Question"
+        android:inputType="textPersonName"
+        android:paddingStart="20dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.344"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/questionTitle" />
 
     <ImageView
-        android:id="@+id/guide_image"
+        android:id="@+id/userImage"
         android:layout_width="match_parent"
         android:layout_height="135dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="17dp"
         android:layout_weight="1"
         android:src="@drawable/guideimage"
-        app:layout_constraintBottom_toTopOf="@+id/guide_name"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView1"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -154,7 +100,7 @@
         android:layout_height="137dp"
         android:orientation="horizontal"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/guide_name"
+        app:layout_constraintBottom_toTopOf="@+id/questionCategory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

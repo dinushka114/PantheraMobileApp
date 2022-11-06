@@ -1,10 +1,5 @@
 package com.example.panthera;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,9 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,11 +29,11 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-public class AddGuide extends AppCompatActivity {
+public class AddQuestion extends AppCompatActivity {
 
-    TextView guide_name, guide_description, guide_address, guide_contact, guide_languages;
-    Button uploadvideobtn, uploadimgbtn, addbtn;
-    ImageView guide_image, image1;
+    TextView questionCategory,questionTitle,question;
+    Button sendBtn,uploadimgbtn,uploadvideobtn;
+    ImageView userImage,questionImage, uploadImage;
     LinearLayout linearLayout;
     Uri ImageUri;
 
@@ -54,42 +52,36 @@ public class AddGuide extends AppCompatActivity {
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage("Please Wait...");
         dialog.setCancelable(false);
-        dialog.setTitle("Guide Adding");
+        dialog.setTitle("Sending the question..");
         dialog.setCanceledOnTouchOutside(false);
 
-        guide_name = findViewById(R.id.guide_name);
-        guide_description = findViewById(R.id.guide_description);
-        guide_address = findViewById(R.id.guide_address);
-        guide_contact = findViewById(R.id.guide_contact);
-        guide_languages = findViewById(R.id.guide_languages);
+        questionCategory = findViewById(R.id.questionCategory);
+        questionTitle = findViewById(R.id.questionTitle);
+        question = findViewById(R.id.question);
+        userImage = findViewById(R.id.userImage);
 
-        guide_image = findViewById(R.id.guide_image);
-        image1 = findViewById(R.id.image1);
         
         linearLayout = findViewById(R.id.linearLayout);
 
-        uploadimgbtn = findViewById(R.id.uploadimgbtn);
-        uploadvideobtn = findViewById(R.id.uploadvideobtn);
+        sendBtn = findViewById(R.id.sendBtn);
 
-        addbtn = findViewById(R.id.addbtn);
-
-        guide_image.setOnClickListener(new View.OnClickListener() {
+        userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 UploadImage();
                 linearLayout.setVisibility(View.VISIBLE);
-                guide_image.setVisibility(View.GONE);
+                userImage.setVisibility(View.GONE);
 
             }
         });
 
-        addbtn.setOnClickListener(new View.OnClickListener() {
+        sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 dialog.show();
 
-                final StorageReference reference = firebaseStorage.getReference().child("guide")
+                final StorageReference reference = firebaseStorage.getReference().child("question")
                         .child(System.currentTimeMillis() + "");
 
                 reference.putFile(ImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -98,21 +90,20 @@ public class AddGuide extends AppCompatActivity {
                         reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                    GuideModel model = new GuideModel();
-                                    model.setImage1(uri.toString());
+                                    QuestionModel model = new QuestionModel();
+                                    model.setUserImage(uri.toString());
 
-                                    model.setGuide_name(guide_name.getText().toString());
-                                    model.setGuide_address(guide_address.getText().toString());
-                                    model.setGuide_contact(guide_contact.getText().toString());
-                                    model.setGuide_description(guide_description.getText().toString());
-                                    model.setGuide_languages(guide_languages.getText().toString());
+                                    model.setQuestionCategory(questionCategory.getText().toString());
+                                    model.setQuestionTitle(questionTitle.getText().toString());
+                                    model.setQuestion(question.getText().toString());
+
                                     
-                                    database.getReference().child("guide").push().setValue(model)
+                                    database.getReference().child("question").push().setValue(model)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
 
-                                                    Toast.makeText(AddGuide.this, "Guide Added Successfully!", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(AddQuestion.this, "Question Send Successfully!", Toast.LENGTH_SHORT).show();
                                                     dialog.dismiss();
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
@@ -120,7 +111,7 @@ public class AddGuide extends AppCompatActivity {
                                                 public void onFailure(@NonNull Exception e) {
 
                                                     dialog.dismiss();
-                                                    Toast.makeText(AddGuide.this, "Error Occurred", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(AddQuestion.this, "Error Occurred", Toast.LENGTH_SHORT).show();
                                                 }
                                             });
                             }
@@ -148,7 +139,7 @@ public class AddGuide extends AppCompatActivity {
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-                        Toast.makeText(AddGuide.this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddQuestion.this, "Permission Denied", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -163,7 +154,7 @@ public class AddGuide extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 101 && resultCode == RESULT_OK) {
                 ImageUri = data.getData();
-                image1.setImageURI(ImageUri);
+                userImage.setImageURI(ImageUri);
         }
     }
 }
