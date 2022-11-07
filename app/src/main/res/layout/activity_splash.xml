@@ -9,23 +9,26 @@
 
     <ImageView
         android:id="@+id/imageHeader"
-        android:layout_width="200dp"
-        android:layout_height="250dp"
+        android:layout_width="@dimen/_140sdp"
+        android:layout_height="@dimen/_180sdp"
         android:layout_marginTop="14dp"
         android:scaleType="fitXY"
         android:src="@drawable/tiger"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/imageHolderView"
+        android:layout_width="@dimen/_451sdp"
+        android:layout_height="@dimen/_390sdp"
+        android:layout_marginStart="88dp"
         android:background="@drawable/header"
         app:layout_constraintBottom_toBottomOf="@id/imageHeader"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/appTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/appTitle"
@@ -67,13 +70,15 @@
         android:id="@+id/getStartBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="@dimen/_85sdp"
-        android:layout_marginEnd="70dp"
+        android:layout_marginStart="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_80sdp"
+        android:layout_marginEnd="@dimen/_50sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
         android:background="@drawable/custom_button"
         android:text="Get Started"
         android:textColor="@color/white"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

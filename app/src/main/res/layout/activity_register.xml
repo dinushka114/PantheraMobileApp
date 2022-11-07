@@ -9,22 +9,25 @@
 
     <ImageView
         android:id="@+id/imageHeader"
-        android:layout_width="150dp"
-        android:layout_height="180dp"
-        android:layout_marginTop="14dp"
+        android:layout_width="@dimen/_180sdp"
+        android:layout_height="@dimen/_220sdp"
+        android:layout_marginTop="@dimen/_14sdp"
         android:scaleType="fitXY"
         android:src="@drawable/tiger"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/imageHolderView"
+        android:layout_width="@dimen/_451sdp"
+        android:layout_height="@dimen/_390sdp"
+        android:layout_marginStart="80dp"
         android:background="@drawable/header"
         app:layout_constraintBottom_toBottomOf="@id/imageHeader"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/avatarHelper"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.699" />
 
     <View
         android:id="@+id/avatarHelper"
