@@ -30,7 +30,6 @@
                     android:layout_width="160dp"
                     android:layout_height="160dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginStart="0dp"
                     android:src="@drawable/guide" />
 
                 <LinearLayout
@@ -66,6 +65,28 @@
                         android:layout_marginTop="5dp"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/editbtn"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="EDIT"
+                            android:layout_marginRight="5dp" />
+
+                        <Button
+                            android:id="@+id/deletebtn"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="DELETE"
+                            android:layout_marginLeft="5dp" />
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
 

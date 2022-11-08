@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -31,17 +33,26 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class AddGuide extends AppCompatActivity {
 
-    TextView guide_name, guide_description, guide_address, guide_contact, guide_languages;
+    private static final int PICK_IMAGE = 1;
+
+    TextView guide_name, guide_description, guide_address, guide_contact, guide_languages, alert;
     Button uploadvideobtn, uploadimgbtn, addbtn;
     ImageView guide_image, image1;
     LinearLayout linearLayout;
     Uri ImageUri;
 
+    ArrayList<Uri> ImageList = new ArrayList<Uri>();
+
     private FirebaseDatabase database;
     private FirebaseStorage firebaseStorage;
     ProgressDialog dialog;
+
+    private int upload_count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +76,13 @@ public class AddGuide extends AppCompatActivity {
 
         guide_image = findViewById(R.id.guide_image);
         image1 = findViewById(R.id.image1);
-        
+
         linearLayout = findViewById(R.id.linearLayout);
 
         uploadimgbtn = findViewById(R.id.uploadimgbtn);
         uploadvideobtn = findViewById(R.id.uploadvideobtn);
+
+        alert = findViewById(R.id.alert);
 
         addbtn = findViewById(R.id.addbtn);
 
@@ -83,11 +96,48 @@ public class AddGuide extends AppCompatActivity {
             }
         });
 
+        uploadimgbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                startActivityForResult(intent, PICK_IMAGE);
+
+            }
+        });
+
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 dialog.show();
+
+                StorageReference ImageFolder = FirebaseStorage.getInstance().getReference().child("ImageFolder");
+
+                for(upload_count=0; upload_count<ImageList.size(); upload_count++) {
+                    Uri IndividualImage = ImageList.get(upload_count);
+                    StorageReference ImageName = ImageFolder.child("Image" + IndividualImage.getLastPathSegment());
+
+                    ImageName.putFile(IndividualImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                ImageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+
+                                        String url = String.valueOf(uri);
+                                        
+                                        StoreLink(url);
+
+                                    }
+                                });
+                        }
+                    });
+                }
 
                 final StorageReference reference = firebaseStorage.getReference().child("guide")
                         .child(System.currentTimeMillis() + "");
@@ -98,33 +148,33 @@ public class AddGuide extends AppCompatActivity {
                         reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                    GuideModel model = new GuideModel();
-                                    model.setImage1(uri.toString());
+                                GuideModel model = new GuideModel();
+                                model.setImage1(uri.toString());
 
-                                    model.setGuide_name(guide_name.getText().toString());
-                                    model.setGuide_address(guide_address.getText().toString());
-                                    model.setGuide_contact(guide_contact.getText().toString());
-                                    model.setGuide_description(guide_description.getText().toString());
-                                    model.setGuide_languages(guide_languages.getText().toString());
-                                    
-                                    database.getReference().child("guide").push().setValue(model)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
+                                model.setGuide_name(guide_name.getText().toString());
+                                model.setGuide_address(guide_address.getText().toString());
+                                model.setGuide_contact(guide_contact.getText().toString());
+                                model.setGuide_description(guide_description.getText().toString());
+                                model.setGuide_languages(guide_languages.getText().toString());
 
-                                                    Toast.makeText(AddGuide.this, "Guide Added Successfully!", Toast.LENGTH_SHORT).show();
-                                                    dialog.dismiss();
-                                                }
-                                            }).addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
+                                database.getReference().child("guide").push().setValue(model)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
 
-                                                    dialog.dismiss();
-                                                    Toast.makeText(AddGuide.this, "Error Occurred", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
+                                                Toast.makeText(AddGuide.this, "Guide Added Successfully!", Toast.LENGTH_SHORT).show();
+                                                dialog.dismiss();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+
+                                                dialog.dismiss();
+                                                Toast.makeText(AddGuide.this, "Error Occurred", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                             }
-                            
+
                         });
 
                     }
@@ -132,6 +182,21 @@ public class AddGuide extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void StoreLink(String url) {
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("UserOne");
+
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("Imglink", url);
+
+        databaseReference.push().setValue(hashMap);
+
+        dialog.dismiss();
+        alert.setText("Image uploaded successfully");
+
+        ImageList.clear();
     }
 
     private void UploadImage() {
@@ -158,12 +223,43 @@ public class AddGuide extends AppCompatActivity {
                 }).check();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 101 && resultCode == RESULT_OK) {
-                ImageUri = data.getData();
-                image1.setImageURI(ImageUri);
+            ImageUri = data.getData();
+            image1.setImageURI(ImageUri);
+        }
+
+        if(requestCode == PICK_IMAGE) {
+
+            if(resultCode == RESULT_OK) {
+
+                if(data.getClipData() != null) {
+
+                    int countClipData = data.getClipData().getItemCount();
+
+                    int currentImageSelect = 0;
+
+                    while(currentImageSelect < countClipData) {
+                        ImageUri = data.getClipData().getItemAt(currentImageSelect).getUri();
+
+                        ImageList.add(ImageUri);
+
+                        currentImageSelect = currentImageSelect + 1;
+
+                    }
+
+                    alert.setVisibility(View.VISIBLE);
+                    alert.setText("You have selected " + ImageList.size() + " images");
+
+
+
+                }else {
+                    Toast.makeText(this, "Please select multiple images", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 }

@@ -2,6 +2,7 @@ package com.example.panthera;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.GridHolder;
+import com.orhanobut.dialogplus.ViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -39,11 +43,29 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.ViewHolder> 
 
         GuideModel model = list.get(position);
 
-        Picasso.get().load(model.getImage1()).placeholder(R.drawable.guide).into(holder.guide_image);
+        Picasso.get().
+                load(model.getImage1())
+                .placeholder(R.drawable.guide)
+                .into(holder.guide_image);
+
+//        holder.editbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                final DialogPlus dialogPlus = DialogPlus.newDialog(holder.guide_image.getContext())
+//                        .setContentHolder(new ViewHolder(R.layout.activity_update_guide))
+//                        .setExpanded(true, 1200)
+//                        .create();
+//
+//                dialogPlus.show();
+//            }
+//        });
 
         holder.guide_name.setText(model.getGuide_name());
         holder.guide_address.setText(model.getGuide_address());
         holder.guide_contact.setText(model.getGuide_contact());
+
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +99,8 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.ViewHolder> 
         TextView guide_name, guide_address, guide_contact;
         ImageView guide_image;
 
+        Button editbtn, deletebtn;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -85,6 +109,15 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.ViewHolder> 
             guide_contact = itemView.findViewById(R.id.guide_contact);
 
             guide_image = itemView.findViewById(R.id.guide_image);
+
+            editbtn = itemView.findViewById(R.id.editbtn);
+            deletebtn = itemView.findViewById(R.id.deletebtn);
+
+
         }
+
     }
+
 }
+
+

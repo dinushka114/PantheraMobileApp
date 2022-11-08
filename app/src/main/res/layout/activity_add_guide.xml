@@ -11,12 +11,12 @@
         android:id="@+id/addbtn"
         android:layout_width="379dp"
         android:layout_height="56dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="44dp"
         android:backgroundTint="#4CAF50"
         android:text="add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -128,12 +128,28 @@
         android:backgroundTint="#2196F3"
         android:text="Upload Videos"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/addbtn"
+        app:layout_constraintBottom_toBottomOf="@+id/addbtn"
         app:layout_constraintEnd_toStartOf="@+id/uploadimgbtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guide_contact"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="here will be alert"
+        android:visibility="gone"
+        android:id="@+id/alert"
+        android:textAlignment="center"
+        android:textColor="#F44336"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addbtn"
+        app:layout_constraintVertical_bias="0.5" />
+
 
     <ImageView
         android:id="@+id/guide_image"
