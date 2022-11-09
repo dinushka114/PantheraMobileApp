@@ -19,15 +19,16 @@
 
     <View
         android:id="@+id/imageHolderView"
-        android:layout_width="@dimen/_451sdp"
-        android:layout_height="@dimen/_390sdp"
-        android:layout_marginStart="80dp"
+        android:layout_width="390dp"
+        android:layout_height="480dp"
+        android:layout_marginStart="16dp"
         android:background="@drawable/header"
+        android:rotation="300"
         app:layout_constraintBottom_toBottomOf="@id/imageHeader"
         app:layout_constraintBottom_toTopOf="@id/avatarHelper"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.699" />
+        app:layout_constraintVertical_bias="0.512" />
 
     <View
         android:id="@+id/avatarHelper"

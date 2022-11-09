@@ -7,34 +7,35 @@
     android:background="@color/white"
     tools:context=".MainActivity">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageHeader"
-        android:layout_width="@dimen/_140sdp"
-        android:layout_height="@dimen/_180sdp"
+        android:layout_width="268dp"
+        android:layout_height="330dp"
         android:layout_marginTop="14dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@drawable/tiger"
+        app:shapeAppearanceOverlay="@style/Splash_tiger"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <View
         android:id="@+id/imageHolderView"
-        android:layout_width="@dimen/_451sdp"
-        android:layout_height="@dimen/_390sdp"
-        android:layout_marginStart="88dp"
+        android:layout_width="388dp"
+        android:layout_height="345dp"
+        android:layout_marginStart="36dp"
         android:background="@drawable/header"
         app:layout_constraintBottom_toBottomOf="@id/imageHeader"
         app:layout_constraintBottom_toTopOf="@id/appTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/appTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/montserrat"
         android:text="Panthera"
         android:textColor="@color/primary_text_color"
