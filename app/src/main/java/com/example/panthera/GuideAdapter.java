@@ -48,18 +48,15 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.ViewHolder> 
                 .placeholder(R.drawable.guide)
                 .into(holder.guide_image);
 
-//        holder.editbtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                final DialogPlus dialogPlus = DialogPlus.newDialog(holder.guide_image.getContext())
-//                        .setContentHolder(new ViewHolder(R.layout.activity_update_guide))
-//                        .setExpanded(true, 1200)
-//                        .create();
-//
-//                dialogPlus.show();
-//            }
-//        });
+        holder.editbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(context , UpdateGuide.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
 
         holder.guide_name.setText(model.getGuide_name());
         holder.guide_address.setText(model.getGuide_address());
