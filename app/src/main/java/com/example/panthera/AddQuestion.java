@@ -109,6 +109,7 @@ public class AddQuestion extends AppCompatActivity {
                 final StorageReference reference = firebaseStorage.getReference().child("question")
                         .child(System.currentTimeMillis() + "");
 
+
                 reference.putFile(ImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -122,7 +123,7 @@ public class AddQuestion extends AppCompatActivity {
                                     model.setQuestionTitle(questionTitle.getText().toString());
                                     model.setQuestion(question.getText().toString());
 
-                                    
+
                                     database.getReference().child("question").push().setValue(model)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
