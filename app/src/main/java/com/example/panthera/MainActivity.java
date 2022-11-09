@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(recycleAdapter);
 
-        firebaseDatabase.getReference().child("guide").addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseDatabase.getReference().child("Safari Guides").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {

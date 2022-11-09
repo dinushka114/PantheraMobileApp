@@ -13,6 +13,7 @@
         android:layout_height="56dp"
         android:layout_marginBottom="44dp"
         android:backgroundTint="#4CAF50"
+        android:onClick="AddData"
         android:text="add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -136,13 +137,13 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:id="@+id/alert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="here will be alert"
-        android:visibility="gone"
-        android:id="@+id/alert"
         android:textAlignment="center"
         android:textColor="#F44336"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

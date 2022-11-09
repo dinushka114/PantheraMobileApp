@@ -39,6 +39,7 @@ import java.util.HashMap;
 public class AddGuide extends AppCompatActivity {
 
     private static final int PICK_IMAGE = 1;
+    private static final int PICK_FILE = 1;
 
     TextView guide_name, guide_description, guide_address, guide_contact, guide_languages, alert;
     Button uploadvideobtn, uploadimgbtn, addbtn;
@@ -47,6 +48,7 @@ public class AddGuide extends AppCompatActivity {
     Uri ImageUri;
 
     ArrayList<Uri> ImageList = new ArrayList<Uri>();
+    ArrayList<Uri> FileList = new ArrayList<Uri>();
 
     private FirebaseDatabase database;
     private FirebaseStorage firebaseStorage;
@@ -67,6 +69,7 @@ public class AddGuide extends AppCompatActivity {
         dialog.setCancelable(false);
         dialog.setTitle("Guide Adding");
         dialog.setCanceledOnTouchOutside(false);
+
 
         guide_name = findViewById(R.id.guide_name);
         guide_description = findViewById(R.id.guide_description);
@@ -109,13 +112,24 @@ public class AddGuide extends AppCompatActivity {
             }
         });
 
+        uploadvideobtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                i.setType("*/*");
+                i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                startActivityForResult(i, PICK_FILE);
+            }
+        });
+
+
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 dialog.show();
 
-                StorageReference ImageFolder = FirebaseStorage.getInstance().getReference().child("ImageFolder");
+                StorageReference ImageFolder = FirebaseStorage.getInstance().getReference().child("Safari_ImageFolder");
 
                 for(upload_count=0; upload_count<ImageList.size(); upload_count++) {
                     Uri IndividualImage = ImageList.get(upload_count);
@@ -139,7 +153,7 @@ public class AddGuide extends AppCompatActivity {
                     });
                 }
 
-                final StorageReference reference = firebaseStorage.getReference().child("guide")
+                final StorageReference reference = firebaseStorage.getReference().child("Safari Guides")
                         .child(System.currentTimeMillis() + "");
 
                 reference.putFile(ImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -157,7 +171,7 @@ public class AddGuide extends AppCompatActivity {
                                 model.setGuide_description(guide_description.getText().toString());
                                 model.setGuide_languages(guide_languages.getText().toString());
 
-                                database.getReference().child("guide").push().setValue(model)
+                                database.getReference().child("Safari Guides").push().setValue(model)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
@@ -179,6 +193,36 @@ public class AddGuide extends AppCompatActivity {
 
                     }
                 });
+
+                for(int j=0; j<FileList.size(); j++) {
+                    Uri PerFile = FileList.get(j);
+
+                    StorageReference folder = FirebaseStorage.getInstance().getReference().child("Safari_VideoFiles");
+                    StorageReference filename = folder.child("file" + PerFile.getLastPathSegment());
+
+                    filename.putFile(PerFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            filename.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri videouri) {
+
+                                    DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child("Safari Videos");
+
+                                    HashMap<String, String> hash = new HashMap<>();
+                                    hash.put("link", String.valueOf(videouri));
+
+                                    databaseRef.push().setValue(hash);
+
+                                    FileList.clear();
+
+                                }
+                            });
+
+                        }
+                    });
+                }
             }
         });
 
@@ -186,7 +230,7 @@ public class AddGuide extends AppCompatActivity {
 
     private void StoreLink(String url) {
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("UserOne");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Safari Photos");
 
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("Imglink", url);
@@ -258,6 +302,23 @@ public class AddGuide extends AppCompatActivity {
 
                 }else {
                     Toast.makeText(this, "Please select multiple images", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+
+        if(requestCode == PICK_FILE){
+            if(resultCode == RESULT_OK) {
+                if(data.getClipData() != null) {
+                    int count = data.getClipData().getItemCount();
+
+                    int i = 0;
+                    while(i < count) {
+                        Uri File = data.getClipData().getItemAt(i).getUri();
+
+                        FileList.add(File);
+                        i++;
+                    }
+
                 }
             }
         }
