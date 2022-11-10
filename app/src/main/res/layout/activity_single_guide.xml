@@ -5,173 +5,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SingleGuideActivity">
+    tools:context=".SingleGuideActivity"
+    android:background="#4CAF50"
+    android:orientation="vertical">
 
-
-
-    <LinearLayout
+    <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:id="@+id/tab_layout">
 
-        <com.google.android.material.tabs.TabLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="About" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Photos" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Videos" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Reviews" />
-
-        </com.google.android.material.tabs.TabLayout>
-
-        <ImageView
-            android:id="@+id/singleImage"
-            android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:src="@drawable/guide" />
-
-        <TextView
-            android:id="@+id/singleGuideName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Guide Name"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_margin="10dp" />
-
-        <LinearLayout
+        <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="About" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="Description"
-                android:textColor="@color/black"
-                android:layout_marginStart="10dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="Photos" />
 
-            <TextView
-                android:id="@+id/singleDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="I have 5 years experience"
-                android:layout_marginStart="20dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="Videos" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="Languages"
-                android:textColor="@color/black"
-                android:layout_marginStart="10dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="Reviews" />
 
-            <TextView
-                android:id="@+id/singleLanguages"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sinhala   Tamil   english"
-                android:layout_marginStart="20dp" />
+    </com.google.android.material.tabs.TabLayout>
 
-        </LinearLayout>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="Contact"
-                android:textColor="@color/black"
-                android:layout_marginStart="10dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/singleContact"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0762881888"
-                android:layout_marginStart="20dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="Location"
-                android:textColor="@color/black"
-                android:layout_marginStart="10dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/singleAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No.22/B, Dibbadda, Panadura"
-                android:layout_marginStart="20dp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
 
 </LinearLayout>
+

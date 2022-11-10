@@ -10,12 +10,13 @@
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:background="#4CAF50"
         android:gravity="center"
         android:text="Update Details"
-        android:textColor="#0D47A1"
-        android:textSize="25dp" />
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="40dp" />
 
     <ImageView
         android:id="@+id/edit_image"

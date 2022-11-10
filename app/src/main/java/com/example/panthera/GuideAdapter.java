@@ -1,25 +1,27 @@
 package com.example.panthera;
 
+import static java.util.Objects.*;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.orhanobut.dialogplus.DialogPlus;
-import com.orhanobut.dialogplus.GridHolder;
-import com.orhanobut.dialogplus.ViewHolder;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.ViewHolder> {
 
@@ -80,6 +82,35 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.ViewHolder> 
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
+
+            }
+        });
+
+        holder.deletebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(holder.guide_name.getContext());
+                builder.setTitle(("Are you sure want to delete?"));
+                builder.setMessage("Deleted");
+
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        Toast.makeText(holder.guide_name.getContext(), "Cancelled", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+                builder.show();
 
             }
         });

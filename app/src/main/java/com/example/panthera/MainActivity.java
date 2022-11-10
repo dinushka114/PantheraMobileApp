@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -27,34 +28,9 @@ public class MainActivity extends AppCompatActivity {
     Button add;
     RecyclerView recyclerView;
     ArrayList<GuideModel> recycleList;
+    GuideAdapter adapter;
 
     FirebaseDatabase firebaseDatabase;
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.search,menu);
-        MenuItem item = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView)item.getActionView();
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
-            }
-        });
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    private void txtSearch(String str) {
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
         recycleList = new ArrayList<>();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
+
+        FirebaseRecyclerOptions<GuideModel> options = new FirebaseRecyclerOptions.Builder<GuideModel>()
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("guide"), GuideModel.class)
+                .build();
 
         GuideAdapter recycleAdapter = new GuideAdapter(recycleList, getApplicationContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

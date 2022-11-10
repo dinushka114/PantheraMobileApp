@@ -1,40 +1,61 @@
 package com.example.panthera;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.panthera.MyViewPageAdapter;
+import com.example.panthera.R;
+import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
 public class SingleGuideActivity extends AppCompatActivity {
 
-    TextView singleGuideName, singleDescription, singleLanguages, singleContact, singleAddress;
-    ImageView singleImage;
+    TabLayout tabLayout;
+    ViewPager2 viewPager2;
+    MyViewPageAdapter myViewPageAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_guide);
 
-        singleGuideName = findViewById(R.id.singleGuideName);
-        singleDescription = findViewById(R.id.singleDescription);
-        singleLanguages = findViewById(R.id.singleLanguages);
-        singleContact = findViewById(R.id.singleContact);
-        singleAddress = findViewById(R.id.singleAddress);
+        viewPager2 = findViewById(R.id.view_pager);
+        tabLayout = findViewById(R.id.tab_layout);
+        myViewPageAdapter = new MyViewPageAdapter(this);
+        viewPager2.setAdapter(myViewPageAdapter);
 
-        singleImage = findViewById(R.id.singleImage);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager2.setCurrentItem(tab.getPosition());
 
-        Picasso.get().load(getIntent().getStringExtra("singleImage"))
-                .placeholder(R.drawable.guide)
-                .into(singleImage);
+            }
 
-        singleGuideName.setText(getIntent().getStringExtra("singleGuideName"));
-        singleDescription.setText(getIntent().getStringExtra("singleDescription"));
-        singleLanguages.setText(getIntent().getStringExtra("singleLanguages"));
-        singleContact.setText(getIntent().getStringExtra("singleContact"));
-        singleAddress.setText(getIntent().getStringExtra("singleAddress"));
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+
+                tabLayout.getTabAt(position).select();
+            }
+        });
+
     }
 }
 
