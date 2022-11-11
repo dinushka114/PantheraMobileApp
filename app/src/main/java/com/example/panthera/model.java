@@ -1,19 +1,17 @@
 package com.example.panthera;
 
-public class QuestionModel {
-
-    private String questionCategory,questionTitle,question;
-    private String userImage;
-
-    public QuestionModel() {
+public class model
+{
+  String questionCategory,questionTitle,question,purl;
+    model()
+    {
 
     }
-
-    public QuestionModel(String questionCategory, String questionTitle, String question, String userImage) {
+    public model(String questionCategory, String questionTitle, String question, String purl) {
         this.questionCategory = questionCategory;
         this.questionTitle = questionTitle;
         this.question = question;
-        this.userImage = userImage;
+        this.purl = purl;
     }
 
     public String getQuestionCategory() {
@@ -40,13 +38,11 @@ public class QuestionModel {
         this.question = question;
     }
 
-    public String getUserImage() {
-        return userImage;
+    public String getPurl() {
+        return purl;
     }
 
-    public void setUserImage(String userImage) {
-        this.userImage = userImage;
+    public void setPurl(String purl) {
+        this.purl = purl;
     }
-
-
 }
