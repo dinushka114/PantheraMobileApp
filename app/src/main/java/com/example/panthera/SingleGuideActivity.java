@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.panthera.MyViewPageAdapter;
 import com.example.panthera.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
@@ -17,7 +19,7 @@ public class SingleGuideActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager2 viewPager2;
     MyViewPageAdapter myViewPageAdapter;
-
+    FloatingActionButton reviewBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,16 @@ public class SingleGuideActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tab_layout);
         myViewPageAdapter = new MyViewPageAdapter(this);
         viewPager2.setAdapter(myViewPageAdapter);
+        reviewBtn = findViewById(R.id.add_fab);
+
+
+        reviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ReviewPopup newReviewPopup = new ReviewPopup();
+                newReviewPopup.show(getSupportFragmentManager(),"MyReviewDialog");
+            }
+        });
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
