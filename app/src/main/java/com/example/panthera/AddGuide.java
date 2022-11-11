@@ -122,14 +122,14 @@ public class AddGuide extends AppCompatActivity {
             }
         });
 
-
+// ----------------------------------------------------------------------------------------------------------------------------------------------
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 dialog.show();
 
-                StorageReference ImageFolder = FirebaseStorage.getInstance().getReference().child("Safari_ImageFolder");
+                StorageReference ImageFolder = FirebaseStorage.getInstance().getReference().child("Safari imageFolder");
 
                 for(upload_count=0; upload_count<ImageList.size(); upload_count++) {
                     Uri IndividualImage = ImageList.get(upload_count);
@@ -194,10 +194,12 @@ public class AddGuide extends AppCompatActivity {
                     }
                 });
 
+// ----------------------------------------------------------------------------------------------------------------------------------------------
+
                 for(int j=0; j<FileList.size(); j++) {
                     Uri PerFile = FileList.get(j);
 
-                    StorageReference folder = FirebaseStorage.getInstance().getReference().child("Safari_VideoFiles");
+                    StorageReference folder = FirebaseStorage.getInstance().getReference().child("Safari videoFiles");
                     StorageReference filename = folder.child("file" + PerFile.getLastPathSegment());
 
                     filename.putFile(PerFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -208,7 +210,7 @@ public class AddGuide extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri videouri) {
 
-                                    DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child("Safari Videos");
+                                    DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child("Safari videos");
 
                                     HashMap<String, String> hash = new HashMap<>();
                                     hash.put("link", String.valueOf(videouri));
@@ -228,9 +230,11 @@ public class AddGuide extends AppCompatActivity {
 
     }
 
+// ----------------------------------------------------------------------------------------------------------------------------------------------
+
     private void StoreLink(String url) {
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Safari Photos");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Safari_Photos");
 
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("Imglink", url);
@@ -238,10 +242,12 @@ public class AddGuide extends AppCompatActivity {
         databaseReference.push().setValue(hashMap);
 
         dialog.dismiss();
-        alert.setText("Image uploaded successfully");
+        alert.setText("Files uploaded successfully");
 
         ImageList.clear();
     }
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------
 
     private void UploadImage() {
         Dexter.withContext(this)
@@ -267,10 +273,13 @@ public class AddGuide extends AppCompatActivity {
                 }).check();
     }
 
+// ----------------------------------------------------------------------------------------------------------------------------------------------
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == 101 && resultCode == RESULT_OK) {
             ImageUri = data.getData();
             image1.setImageURI(ImageUri);
@@ -296,15 +305,17 @@ public class AddGuide extends AppCompatActivity {
                     }
 
                     alert.setVisibility(View.VISIBLE);
-                    alert.setText("You have selected " + ImageList.size() + " images");
+                    alert.setText("You have selected " + ImageList.size() + " files");
 
 
 
                 }else {
-                    Toast.makeText(this, "Please select multiple images", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please select multiple files", Toast.LENGTH_SHORT).show();
                 }
             }
         }
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------
 
         if(requestCode == PICK_FILE){
             if(resultCode == RESULT_OK) {
@@ -324,3 +335,4 @@ public class AddGuide extends AppCompatActivity {
         }
     }
 }
+

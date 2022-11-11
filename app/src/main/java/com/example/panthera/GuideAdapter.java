@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -86,34 +87,33 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.ViewHolder> 
             }
         });
 
-        holder.deletebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//        holder.deletebtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                AlertDialog.Builder builder=new AlertDialog.Builder(holder.guide_name.getContext());
+//                builder.setTitle("Delete safari guide");
+//                builder.setMessage("Are you sure , you want to remove the guide ?");
+//
+//                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        FirebaseDatabase.getInstance().getReference().child("Safari Guides")
+//                                .child(getRef(position).getKey()).removeValue();
+//                    }
+//                });
+//
+//                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                    }
+//                });
+//
+//                builder.show();
+//            }
+//        });
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(holder.guide_name.getContext());
-                builder.setTitle(("Are you sure want to delete?"));
-                builder.setMessage("Deleted");
 
-                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        Toast.makeText(holder.guide_name.getContext(), "Cancelled", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
-                builder.show();
-
-            }
-        });
 
     }
 
