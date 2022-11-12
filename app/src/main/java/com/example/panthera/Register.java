@@ -57,7 +57,7 @@ public class Register extends AppCompatActivity {
                                             if(task1.isSuccessful()){
                                                 Toast.makeText(getApplicationContext() , "User is registered successful" , Toast.LENGTH_LONG).show();
                                                 progressBar.setVisibility(View.INVISIBLE);
-                                                startActivity(new Intent(Register.this , Home.class));
+                                                startActivity(new Intent(Register.this , Login.class));
                                             }else{
                                                 Toast.makeText(getApplicationContext() , "Something went wrong" , Toast.LENGTH_LONG).show();
                                                 progressBar.setVisibility(View.GONE);

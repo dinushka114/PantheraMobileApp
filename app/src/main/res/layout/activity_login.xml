@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/imageHeader"
-        android:layout_width="@dimen/_180sdp"
-        android:layout_height="@dimen/_220sdp"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_200sdp"
         android:layout_marginTop="@dimen/_14sdp"
         android:scaleType="fitXY"
         android:src="@drawable/tiger"
@@ -19,15 +19,14 @@
 
     <View
         android:id="@+id/imageHolderView"
-        android:layout_width="@dimen/_451sdp"
-        android:layout_height="@dimen/_390sdp"
-        android:layout_marginStart="80dp"
+        android:layout_width="358dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="100dp"
         android:background="@drawable/header"
         app:layout_constraintBottom_toBottomOf="@id/imageHeader"
-        app:layout_constraintBottom_toTopOf="@id/avatarHelper"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.699" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:id="@+id/avatarHelper"
@@ -44,6 +43,7 @@
         android:orientation="vertical"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/_20sdp"
         app:layout_constraintTop_toBottomOf="@id/imageHeader">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -67,8 +67,8 @@
                 android:id="@+id/usernameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:background="@null"
                 android:imeOptions="actionNext"
                 android:textColor="@color/primary_text_color"
@@ -92,21 +92,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="30dp"
-                android:text="Email"
+                android:text="Password"
                 android:textColor="@color/primary_text_color"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/usernameEditTextView" />
 
             <EditText
-                android:id="@+id/emailEditText"
+                android:id="@+id/passwordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:background="@null"
                 android:imeOptions="actionNext"
-
+                android:inputType="textPassword"
                 android:textColor="@color/primary_text_color"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/emailTextView" />
@@ -121,7 +121,7 @@
                 android:layout_marginEnd="20dp"
                 android:background="@color/primary_text_color"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/emailEditText" />
+                app:layout_constraintTop_toBottomOf="@id/passwordEditText" />
 
 
             <Button
