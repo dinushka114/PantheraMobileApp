@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity
     myadapter adapter;
     ImageView fb;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,10 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(getApplicationContext(), com.example.panthera.adddata.class));
             }
         });
+
+
+
+
 
     }
 

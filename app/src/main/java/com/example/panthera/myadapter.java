@@ -1,8 +1,11 @@
 package com.example.panthera;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,6 +53,7 @@ public class myadapter extends FirebaseRecyclerAdapter<model,myadapter.myviewhol
         holder.questionCategory.setText(model.getQuestionCategory());
         holder.questionTitle.setText(model.getQuestionTitle());
         holder.question.setText(model.getQuestion());
+        holder.reply.setText(model.getReply());
         Glide.with(holder.img.getContext()).load(model.getPurl()).into(holder.img);
 
         holder.edit.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +69,7 @@ public class myadapter extends FirebaseRecyclerAdapter<model,myadapter.myviewhol
                 final Spinner questionCategory=myview.findViewById(R.id.uquestionCategory);
                 final EditText questionTitle=myview.findViewById(R.id.uquestionTitle);
                 final EditText question=myview.findViewById(R.id.uquestion);
+
                 Button submit=myview.findViewById(R.id.usubmit);
 
                 arrayAdapter = new ArrayAdapter<String>(questionCategory.getContext(), android.R.layout.simple_spinner_dropdown_item,categories);
@@ -86,6 +92,7 @@ public class myadapter extends FirebaseRecyclerAdapter<model,myadapter.myviewhol
                         map.put("questionTitle",questionTitle.getText().toString());
                         map.put("question",question.getText().toString());
 
+
                         FirebaseDatabase.getInstance().getReference().child("questions")
                                 .child(getRef(position).getKey()).updateChildren(map)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -106,6 +113,65 @@ public class myadapter extends FirebaseRecyclerAdapter<model,myadapter.myviewhol
 
             }
         });
+
+        holder.replybtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final DialogPlus dialogPlus=DialogPlus.newDialog(holder.img.getContext())
+                        .setContentHolder(new ViewHolder(R.layout.activity_reply))
+                        .setExpanded(true,1200)
+                        .create();
+
+                View myview=dialogPlus.getHolderView();
+
+                final EditText purl=myview.findViewById(R.id.uimgurl);
+                final Spinner questionCategory=myview.findViewById(R.id.uquestionCategory);
+                final TextView questionTitle=myview.findViewById(R.id.uquestionTitle);
+                final TextView question=myview.findViewById(R.id.uquestion);
+                final EditText reply=myview.findViewById(R.id.ureply);
+                Button submit=myview.findViewById(R.id.usubmit);
+
+                arrayAdapter = new ArrayAdapter<String>(questionCategory.getContext(), android.R.layout.simple_spinner_dropdown_item,categories);
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                questionCategory.setAdapter(arrayAdapter);
+
+                reply.setText(model.getReply());
+                questionTitle.setText(model.getQuestionTitle());
+                question.setText(model.getQuestion());
+
+
+                dialogPlus.show();
+
+                submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Map<String,Object> map=new HashMap<>();
+                        map.put("questionCategory",questionCategory.getSelectedItem().toString());
+                        map.put("questionTitle",questionTitle.getText().toString());
+                        map.put("question",question.getText().toString());
+                        map.put("reply",reply.getText().toString());
+
+                        FirebaseDatabase.getInstance().getReference().child("questions")
+                                .child(getRef(position).getKey()).updateChildren(map)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        dialogPlus.dismiss();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        dialogPlus.dismiss();
+                                    }
+                                });
+                    }
+                });
+            }
+
+        });
+
+
 
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
@@ -148,8 +214,8 @@ public class myadapter extends FirebaseRecyclerAdapter<model,myadapter.myviewhol
     class myviewholder extends RecyclerView.ViewHolder
     {
         CircleImageView img;
-        ImageView edit,delete;
-        TextView questionCategory,questionTitle,question;
+        ImageView edit,delete,replybtn;
+        TextView questionCategory,questionTitle,question,reply;
         public myviewholder(@NonNull View itemView)
         {
             super(itemView);
@@ -157,9 +223,12 @@ public class myadapter extends FirebaseRecyclerAdapter<model,myadapter.myviewhol
             questionCategory=(TextView)itemView.findViewById(R.id.questionCategoryText);
             questionTitle=(TextView)itemView.findViewById(R.id.questionTitleText);
             question=(TextView)itemView.findViewById(R.id.questionText);
+            reply=(TextView)itemView.findViewById(R.id.replyText);
+
 
             edit=(ImageView)itemView.findViewById(R.id.editicon);
             delete=(ImageView)itemView.findViewById(R.id.deleteicon);
+            replybtn=(ImageView)itemView.findViewById(R.id.replybtn);
         }
     }
 }
